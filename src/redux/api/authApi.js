@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { token, isLoggedIn, user, isRefreshing } from 'redux/actions';
+// import Notiflix from 'notiflix';
 
 export const authApi = createApi({
   reducerPath: 'authApi',

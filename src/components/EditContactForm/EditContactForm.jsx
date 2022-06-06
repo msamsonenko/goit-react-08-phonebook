@@ -9,9 +9,7 @@ export default function EditContactForm({ closeForm, contact }) {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [id, setId] = useState(contact.id);
-
-  console.log(contact);
+  const [id] = useState(contact.id);
 
   const handleInputChange = e => {
     const { name } = e.target;
@@ -29,7 +27,6 @@ export default function EditContactForm({ closeForm, contact }) {
   };
   const onFormSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
     editContact({ name, number, id });
     closeForm();
     reset();
