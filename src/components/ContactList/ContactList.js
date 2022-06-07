@@ -3,6 +3,7 @@ import {
   EditBtn,
   ContactListName,
   ContactListNumber,
+  ContactListContainer,
 } from './ContactList.styled';
 import { ListGroup } from 'react-bootstrap';
 import { useState } from 'react';
@@ -10,20 +11,12 @@ import {
   useGetAllContactsQuery,
   useDeleteContactMutation,
 } from 'redux/api/authApi';
-import AddContactModal from 'components/AddContactModal';
-import EditContactForm from 'components/EditContactForm';
+import ContactListItem from 'components/ContactListItem';
 
 const ContactList = ({ filterValue }) => {
   const { data, isLoading } = useGetAllContactsQuery({
     refetchOnMountOrArgChange: true,
   });
-  const [showModal, setShowModal] = useState(false);
-
-  const [deleteContact] = useDeleteContactMutation();
-
-  const toggleModal = () => {
-    setShowModal(state => !state);
-  };
 
   const filteredContacts =
     isLoading ||
@@ -31,39 +24,12 @@ const ContactList = ({ filterValue }) => {
 
   return (
     <>
-      <ListGroup variant="flush">
+      <ContactListContainer>
         {isLoading ||
           filteredContacts.map(contact => {
-            return (
-              <ListGroup.Item key={contact.id} style={{ width: '600px' }}>
-                <ContactListName>{contact.name}</ContactListName>
-                <ContactListNumber>{contact.number}</ContactListNumber>
-                <DeletetBtn
-                  type="button"
-                  onClick={() => deleteContact(contact.id)}
-                  style={{ marginRight: '10px' }}
-                >
-                  Delete
-                </DeletetBtn>
-
-                <EditBtn type="button" onClick={toggleModal}>
-                  Edit
-                </EditBtn>
-                {showModal && (
-                  <AddContactModal
-                    onClose={toggleModal}
-                    child={
-                      <EditContactForm
-                        closeForm={toggleModal}
-                        contact={contact}
-                      />
-                    }
-                  ></AddContactModal>
-                )}
-              </ListGroup.Item>
-            );
+            return <ContactListItem key={contact.id} contact={contact} />;
           })}
-      </ListGroup>
+      </ContactListContainer>
     </>
   );
 };

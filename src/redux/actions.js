@@ -17,3 +17,4 @@ export const isLoggedIn = createAction('users/login');
 export const token = createAction('users/token');
 export const user = createAction('users/data');
 export const isRefreshing = createAction('users/refresh');
+export const isError = createAction('users/error');

@@ -6,10 +6,10 @@ import { FormTitle } from './EditContactForm.styled';
 
 export default function EditContactForm({ closeForm, contact }) {
   const [editContact] = useEditContactMutation();
-
+  console.log(contact);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [id] = useState(contact.id);
+  const [id, setId] = useState(contact.id);
 
   const handleInputChange = e => {
     const { name } = e.target;
@@ -27,6 +27,7 @@ export default function EditContactForm({ closeForm, contact }) {
   };
   const onFormSubmit = e => {
     e.preventDefault();
+    console.log('edit form', name, number, id);
     editContact({ name, number, id });
     closeForm();
     reset();
@@ -35,6 +36,7 @@ export default function EditContactForm({ closeForm, contact }) {
   const reset = () => {
     setName('');
     setNumber('');
+    setId('');
   };
   return (
     <div>
@@ -85,7 +87,7 @@ export default function EditContactForm({ closeForm, contact }) {
           </Button>
           <Button
             variant="primary"
-            type="submit"
+            type="button"
             style={{ width: '110px' }}
             onClick={closeForm}
           >

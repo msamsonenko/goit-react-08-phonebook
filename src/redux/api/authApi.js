@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { token, isLoggedIn, user, isRefreshing } from 'redux/actions';
-// import Notiflix from 'notiflix';
+import { token, isLoggedIn, user, isRefreshing, isError } from 'redux/actions';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -49,9 +48,10 @@ export const authApi = createApi({
           dispatch(token(data.token));
           dispatch(isLoggedIn(true));
           dispatch(user(data.user));
+          dispatch(isError(false));
           return data;
         } catch (error) {
-          dispatch(console.log('error logging in'));
+          dispatch(isError(true));
         }
       },
     }),
@@ -84,7 +84,7 @@ export const authApi = createApi({
         method: 'POST',
         body: token,
       }),
-      providesTags: ['Users'],
+      invalidatesTags: ['Users'],
       async onQueryStarted(logOut, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -98,10 +98,10 @@ export const authApi = createApi({
       },
     }),
     editContact: builder.mutation({
-      query: ({ name, number, id }) => ({
+      query: ({ id, ...rest }) => ({
         url: `/contacts/${id}`,
         method: 'PATCH',
-        body: { name, number },
+        body: rest,
       }),
       invalidatesTags: ['Contacts'],
       async onQueryStarted(logIn, { dispatch, queryFulfilled }) {

@@ -1,5 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { filter, isLoggedIn, token, user, isRefreshing } from './actions';
+import {
+  filter,
+  isLoggedIn,
+  token,
+  user,
+  isRefreshing,
+  isError,
+} from './actions';
 
 export const myReducer = createReducer(
   {
@@ -8,6 +15,7 @@ export const myReducer = createReducer(
     token: null,
     filter: '',
     isRefreshing: false,
+    isError: false,
   },
 
   {
@@ -31,6 +39,9 @@ export const myReducer = createReducer(
     },
     [isRefreshing]: (state, action) => {
       return { ...state, isRefreshing: action.payload };
+    },
+    [isError]: (state, action) => {
+      return { ...state, isError: action.payload };
     },
   }
 );

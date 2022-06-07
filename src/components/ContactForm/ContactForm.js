@@ -61,14 +61,14 @@ export default function ContactForm({ closeForm }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Number</Form.Label>
           <Form.Control
             type="tel"
             name="number"
             value={number}
             required
             onChange={handleInputChange}
-            placeholder="Password"
+            placeholder="Number"
           />
         </Form.Group>
         <Form.Group
