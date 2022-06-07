@@ -1,16 +1,6 @@
-import {
-  DeletetBtn,
-  EditBtn,
-  ContactListName,
-  ContactListNumber,
-  ContactListContainer,
-} from './ContactList.styled';
-import { ListGroup } from 'react-bootstrap';
-import { useState } from 'react';
-import {
-  useGetAllContactsQuery,
-  useDeleteContactMutation,
-} from 'redux/api/authApi';
+import { ContactListContainer } from './ContactList.styled';
+
+import { useGetAllContactsQuery } from 'redux/api/authApi';
 import ContactListItem from 'components/ContactListItem';
 
 const ContactList = ({ filterValue }) => {

@@ -51,7 +51,12 @@ export default function EditContactForm({ closeForm, contact }) {
       >
         <FormTitle>Edit Contact</FormTitle>
         <Form.Group className="mb-3" controlId="formBasicEmail" width="300px">
-          <Form.Label>Previous name: {contact.name.toUpperCase()}</Form.Label>
+          <Form.Label>
+            Previous name:{' '}
+            <span style={{ fontWeight: '700', fontSize: '15px' }}>
+              {contact.name.toUpperCase()}
+            </span>
+          </Form.Label>
           <Form.Control
             type="text"
             name="name"
@@ -64,7 +69,12 @@ export default function EditContactForm({ closeForm, contact }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Previous number: {contact.number}</Form.Label>
+          <Form.Label>
+            Previous number:{' '}
+            <span style={{ fontWeight: '700', fontSize: '15px' }}>
+              {contact.number}
+            </span>
+          </Form.Label>
           <Form.Control
             type="tel"
             name="number"

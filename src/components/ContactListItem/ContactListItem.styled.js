@@ -14,8 +14,9 @@ export const ContactItem = styled.li`
   }
 `;
 export const DeletetBtn = styled.button`
-width: 60px;
+    width: 60px;
   height: 35px;
+      margin-left: auto;
   padding: 5px;
   color: #e03505;
   border: 1px solid #e03505;
