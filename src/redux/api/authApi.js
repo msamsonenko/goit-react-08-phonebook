@@ -57,7 +57,7 @@ export const authApi = createApi({
     }),
     refetchUser: builder.query({
       query: () => `users/current`,
-      providesTags: ['Users'],
+      invalidatesTags: ['Users'],
       async onQueryStarted(logIn, { dispatch, getState, queryFulfilled }) {
         const token = getState().persistedReducer.token;
         if (token === null) {
