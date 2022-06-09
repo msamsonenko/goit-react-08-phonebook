@@ -1,18 +1,15 @@
 import { useState } from 'react';
 import { useLogInUserMutation } from 'redux/api/authApi';
 import { Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import Notiflix from 'notiflix';
 
 import { PageHeader, Link, Container, Span } from './LogIn.styled';
 
 const LogIn = () => {
-  const isError = useSelector(state => state.persistedReducer.isError);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [logInUser] = useLogInUserMutation();
-
-  console.log(isError);
 
   const handleInputChange = e => {
     const { name } = e.target;
@@ -28,10 +25,21 @@ const LogIn = () => {
         return;
     }
   };
+  const onLoginUserClick = async () => {
+    try {
+      const { user } = await logInUser({ email, password }).unwrap();
 
+      Notiflix.Notify.success(`Logged in as ${user.name}`);
+    } catch (error) {
+      return Notiflix.Notify.failure(
+        'Incorrect email or password please try again'
+      );
+    }
+  };
   const onFormSubmit = e => {
     e.preventDefault();
-    logInUser({ email, password });
+    onLoginUserClick();
+    // logInUser({ email, password });
     reset();
   };
 
@@ -43,13 +51,13 @@ const LogIn = () => {
   return (
     <Container>
       <PageHeader>Welcome</PageHeader>
-      {isError ? (
+      {/* {isError ? (
         <p style={{ color: 'red' }}>
           Email or password is incorrect, please try again
         </p>
       ) : (
         ''
-      )}
+      )} */}
       <Form onSubmit={onFormSubmit} style={{ width: '350px' }}>
         <Form.Group className="mb-3" controlId="formBasicEmail" width="300px">
           <Form.Label>Email address</Form.Label>

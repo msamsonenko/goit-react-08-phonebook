@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { PageHeader, Container, Link, Span } from './SignUp.styled';
 import { Form, Button } from 'react-bootstrap';
 
 import { useAddUserMutation } from 'redux/api/authApi';
 
 const SignUp = () => {
+  const dispatch = useDispatch();
   const [addUser] = useAddUserMutation();
 
   const [name, setName] = useState('');
@@ -30,7 +32,6 @@ const SignUp = () => {
   };
   const onFormSubmit = e => {
     e.preventDefault();
-    console.log(email, password, name);
     addUser({ name, email, password });
     reset();
   };
@@ -45,7 +46,7 @@ const SignUp = () => {
       <Container>
         <PageHeader>Welcome</PageHeader>
         <Form onSubmit={onFormSubmit} style={{ width: '350px' }}>
-          <Form.Group className="mb-3" controlId="formBasicEmail" width="300px">
+          <Form.Group className="mb-3" controlId="formBasicName" width="300px">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="name"

@@ -27,7 +27,6 @@ export default function EditContactForm({ closeForm, contact }) {
   };
   const onFormSubmit = e => {
     e.preventDefault();
-    console.log('edit form', name, number, id);
     editContact({ name, number, id });
     closeForm();
     reset();
