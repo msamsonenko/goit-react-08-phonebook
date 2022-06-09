@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useEditContactMutation } from 'redux/api/authApi';
 import { Form, Button } from 'react-bootstrap';
+import Notiflix from 'notiflix';
 
 import { FormTitle } from './EditContactForm.styled';
 
 export default function EditContactForm({ closeForm, contact }) {
   const [editContact] = useEditContactMutation();
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [name, setName] = useState(contact.name);
+  const [number, setNumber] = useState(contact.number);
   const [id, setId] = useState(contact.id);
 
   const handleInputChange = e => {
@@ -24,9 +25,16 @@ export default function EditContactForm({ closeForm, contact }) {
         return;
     }
   };
+  const editValuesCheck = (name, number, id) => {
+    if (name.trim() === '' || number.trim() === '') {
+      return Notiflix.Notify.warning('Form fields cannot be empty');
+    }
+
+    return editContact({ name, number, id });
+  };
   const onFormSubmit = e => {
     e.preventDefault();
-    editContact({ name, number, id });
+    editValuesCheck(name, number, id);
     closeForm();
     reset();
   };
@@ -50,34 +58,34 @@ export default function EditContactForm({ closeForm, contact }) {
         <FormTitle>Edit Contact</FormTitle>
         <Form.Group className="mb-3" controlId="formBasicEmail" width="300px">
           <Form.Label>
-            Previous name:{' '}
-            <span style={{ fontWeight: '700', fontSize: '15px' }}>
+            Change name:
+            {/* <span style={{ fontWeight: '700', fontSize: '15px' }}>
               {contact.name.toUpperCase()}
-            </span>
+            </span> */}
           </Form.Label>
           <Form.Control
             type="text"
             name="name"
             value={name}
-            required
+            // required
             onChange={handleInputChange}
-            placeholder={contact.name}
+            placeholder="New name"
             autoComplete="off"
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>
-            Previous number:{' '}
-            <span style={{ fontWeight: '700', fontSize: '15px' }}>
+            Change number:
+            {/* <span style={{ fontWeight: '700', fontSize: '15px' }}>
               {contact.number}
-            </span>
+            </span> */}
           </Form.Label>
           <Form.Control
             type="tel"
             name="number"
             value={number}
-            required
+            // required
             onChange={handleInputChange}
             placeholder="New number"
           />
