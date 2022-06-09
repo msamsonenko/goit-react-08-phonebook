@@ -10,6 +10,9 @@ import {
   DeletetBtn,
   EditBtn,
 } from './ContactListItem.styled';
+Notiflix.Confirm.init({
+  okButtonBackground: '#e03505',
+});
 
 const ContactListItem = ({ contact }) => {
   const [showModal, setShowModal] = useState(false);
