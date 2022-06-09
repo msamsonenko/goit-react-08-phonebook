@@ -30,6 +30,7 @@ const LogIn = () => {
       const { user } = await logInUser({ email, password }).unwrap();
 
       Notiflix.Notify.success(`Logged in as ${user.name}`);
+      return user;
     } catch (error) {
       return Notiflix.Notify.failure(
         'Incorrect email or password please try again'
@@ -39,7 +40,6 @@ const LogIn = () => {
   const onFormSubmit = e => {
     e.preventDefault();
     onLoginUserClick();
-    // logInUser({ email, password });
     reset();
   };
 

@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import Notiflix from 'notiflix';
 import { PageHeader, Container, Link, Span } from './SignUp.styled';
 import { Form, Button } from 'react-bootstrap';
 
 import { useAddUserMutation } from 'redux/api/authApi';
 
 const SignUp = () => {
-  const dispatch = useDispatch();
   const [addUser] = useAddUserMutation();
 
   const [name, setName] = useState('');
@@ -30,9 +29,21 @@ const SignUp = () => {
         return;
     }
   };
+  const onSignUpUserClick = async () => {
+    try {
+      const { user } = await addUser({ name, email, password }).unwrap();
+
+      Notiflix.Notify.success(
+        `Welcome, ${user.name}. Account creaated successfuly`
+      );
+      return user;
+    } catch (error) {
+      return Notiflix.Notify.failure('Something went wrong, please try again');
+    }
+  };
   const onFormSubmit = e => {
     e.preventDefault();
-    addUser({ name, email, password });
+    onSignUpUserClick();
     reset();
   };
 

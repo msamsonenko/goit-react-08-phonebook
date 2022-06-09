@@ -6,6 +6,8 @@ import ContactListItem from 'components/ContactListItem';
 const ContactList = ({ filterValue }) => {
   const { data, isLoading } = useGetAllContactsQuery({
     refetchOnMountOrArgChange: true,
+    refetchOnFocus: true,
+    refetchOnReconnect: true,
   });
 
   const filteredContacts =
