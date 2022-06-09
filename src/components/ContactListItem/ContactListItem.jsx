@@ -2,6 +2,7 @@ import AddContactModal from 'components/AddContactModal';
 import EditContactForm from 'components/EditContactForm';
 import { useDeleteContactMutation } from 'redux/api/authApi';
 import { useState } from 'react';
+import Notiflix from 'notiflix';
 import {
   ContactItem,
   ContactListName,
@@ -15,6 +16,21 @@ const ContactListItem = ({ contact }) => {
 
   const [deleteContact] = useDeleteContactMutation();
 
+  const promptBeforeDeleteContactModal = id => {
+    Notiflix.Confirm.show(
+      'Are you sure?',
+      'Data cannot be restored after deleting',
+      'Delete',
+      'Cancel',
+      function okCb() {
+        deleteContact(id);
+      },
+      function notOkCb() {
+        return;
+      }
+    );
+  };
+
   const toggleModal = () => {
     setShowModal(state => !state);
   };
@@ -26,7 +42,7 @@ const ContactListItem = ({ contact }) => {
 
       <DeletetBtn
         type="button"
-        onClick={() => deleteContact(contact.id)}
+        onClick={() => promptBeforeDeleteContactModal(contact.id)}
         style={{ marginRight: '10px' }}
       >
         Delete

@@ -6,7 +6,6 @@ import { FormTitle } from './EditContactForm.styled';
 
 export default function EditContactForm({ closeForm, contact }) {
   const [editContact] = useEditContactMutation();
-  console.log(contact);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [id, setId] = useState(contact.id);
@@ -62,7 +61,7 @@ export default function EditContactForm({ closeForm, contact }) {
             value={name}
             required
             onChange={handleInputChange}
-            placeholder="New name"
+            placeholder={contact.name}
             autoComplete="off"
           />
         </Form.Group>
