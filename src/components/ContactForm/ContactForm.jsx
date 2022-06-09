@@ -55,7 +55,7 @@ export default function ContactForm({ closeForm }) {
             value={name}
             required
             onChange={handleInputChange}
-            placeholder="Enter email"
+            placeholder="Enter name"
             autoComplete="off"
           />
         </Form.Group>
@@ -68,7 +68,7 @@ export default function ContactForm({ closeForm }) {
             value={number}
             required
             onChange={handleInputChange}
-            placeholder="Number"
+            placeholder="Enter number"
           />
         </Form.Group>
         <Form.Group
